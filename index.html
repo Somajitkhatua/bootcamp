@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Build a Real Mobile App With AI in 90 Minutes — Free Bootcamp · RevApex AI</title>
+<meta name="description" content="Free live online bootcamp. Build a working AI mobile app in 90 minutes — no coding degree needed. Hosted by Mahabahu Behera, founder of RevApex AI. Fri, June 20, 2026, 10:30 AM IST.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0A0F;
+    --bg-1:#101019;
+    --bg-2:#15151f;
+    --bg-3:#1b1b27;
+    --line:rgba(255,255,255,.08);
+    --line-2:rgba(255,255,255,.14);
+    --blue:#3B82F6;
+    --blue-bright:#60A5FA;
+    --blue-deep:#2563EB;
+    --blue-300:#B4C5FF;
+    --text:#F5F7FA;
+    --muted:rgba(245,247,250,.62);
+    --faint:rgba(245,247,250,.40);
+    --amber:#FBBF24;
+    --green:#34D399;
+    --cta:#27D17F;
+    --cta-bright:#34E88E;
+    --cta-deep:#12A862;
+    --display:'Space Grotesk',sans-serif;
+    --body:'Inter',sans-serif;
+    --maxw:1120px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{
+    font-family:var(--body);
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--blue);color:#fff}
+  a{color:inherit;text-decoration:none}
+  img,svg{display:block}
+
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;width:100%}
+  section{position:relative}
+
+  /* ---------- Eyebrow / labels ---------- */
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;
+    font-family:var(--body);font-weight:600;font-size:12px;
+    letter-spacing:.16em;text-transform:uppercase;
+    color:var(--blue-bright);
+    padding:7px 14px;border-radius:999px;white-space:nowrap;
+    border:1px solid rgba(59,130,246,.32);
+    background:rgba(59,130,246,.08);
+  }
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(52,211,153,.18);animation:livedot 1.6s ease-in-out infinite}
+  @keyframes livedot{0%,100%{opacity:1}50%{opacity:.35}}
+
+  .kicker{font-family:var(--body);font-weight:600;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--blue-bright)}
+
+  h1,h2,h3{font-family:var(--display);font-weight:700;line-height:1.04;letter-spacing:-.02em;color:#fff}
+  h2{font-size:clamp(2rem,4.4vw,3.1rem)}
+  .lead{color:var(--muted);font-size:clamp(1.05rem,1.6vw,1.22rem);max-width:46ch}
+
+  /* ---------- Buttons ---------- */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    font-family:var(--body);font-weight:600;font-size:1.02rem;
+    padding:16px 30px;border-radius:999px;border:0;cursor:pointer;
+    transition:transform .15s ease, box-shadow .2s ease, background .2s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{
+    background:linear-gradient(180deg,var(--cta-bright),var(--cta-deep));
+    color:#04140c;font-weight:700;
+    box-shadow:0 10px 30px -8px rgba(39,209,127,.6), inset 0 1px 0 rgba(255,255,255,.35);
+  }
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 44px -8px rgba(39,209,127,.85), inset 0 1px 0 rgba(255,255,255,.35)}
+  .btn-primary:active{transform:translateY(0)}
+  .btn-ghost{background:rgba(255,255,255,.04);color:#fff;border:1px solid var(--line-2)}
+  .btn-ghost:hover{background:rgba(255,255,255,.08)}
+  .btn-sm{padding:11px 20px;font-size:.92rem}
+  .btn-block{width:100%}
+
+  /* ---------- Header ---------- */
+  header{position:sticky;top:0;z-index:50;transition:background .3s ease, border-color .3s ease}
+  header.scrolled{background:rgba(10,10,15,.78);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:72px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand .mark{width:38px;height:38px;border-radius:11px;flex:none}
+  .brand .name{font-family:var(--display);font-weight:700;font-size:1.2rem;letter-spacing:-.01em;white-space:nowrap}
+  .brand .name span{color:var(--blue-bright)}
+  .nav-meta{display:flex;align-items:center;gap:18px}
+  .nav-date{font-size:.86rem;color:var(--muted);font-weight:500}
+  .nav-date b{color:var(--text);font-weight:600}
+
+  /* ---------- Background glow / grid ---------- */
+  .bg-fx{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+  .grid-lines{position:absolute;inset:0;
+    background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:64px 64px;
+    mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 0%,transparent 75%);
+    -webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 0%,transparent 75%);
+    opacity:.5;
+  }
+  .glow{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55}
+  .glow.a{width:620px;height:620px;background:radial-gradient(circle,rgba(59,130,246,.55),transparent 68%);top:-260px;right:-120px}
+  .glow.b{width:520px;height:520px;background:radial-gradient(circle,rgba(37,99,235,.42),transparent 70%);top:120px;left:-200px}
+
+  /* ---------- Hero ---------- */
+  .hero{padding:56px 0 84px}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:56px;align-items:center;position:relative;z-index:1}
+  .hero h1{font-size:clamp(2.45rem,5.6vw,4.4rem);margin:22px 0 20px}
+  .hero h1 .hl{color:var(--blue-bright)}
+  .hero .lead{margin-bottom:30px;max-width:30ch}
+  .hero-cta{display:flex;flex-wrap:wrap;gap:14px;align-items:center}
+  .trust-inline{display:flex;align-items:center;gap:12px;margin-top:26px;flex-wrap:wrap}
+  .avatars{display:flex}
+  .avatars span{width:34px;height:34px;border-radius:50%;border:2px solid var(--bg);margin-left:-10px;display:grid;place-items:center;font-size:.74rem;font-weight:700;font-family:var(--display);color:#fff}
+  .avatars span:first-child{margin-left:0}
+  .stars{color:var(--amber);letter-spacing:2px;font-size:.95rem}
+  .trust-inline p{font-size:.86rem;color:var(--muted)}
+  .trust-inline b{color:var(--text)}
+  .powered{display:flex;align-items:center;gap:12px;margin-top:24px;flex-wrap:wrap}
+  .powered-label{font-size:.82rem;color:var(--faint);font-weight:500}
+  .claude-chip{display:inline-flex;align-items:center;gap:9px;padding:8px 15px;border-radius:999px;
+    background:rgba(217,119,87,.12);border:1px solid rgba(217,119,87,.36);
+    font-family:var(--display);font-weight:600;font-size:.92rem;color:#EAB59E;white-space:nowrap}
+  .claude-chip .cmark{width:20px;height:20px;flex:none}
+  .cmark line{stroke:#D97757}
+
+  /* ---------- 90 MIN badge ---------- */
+  .badge-stage{display:flex;flex-direction:column;align-items:center;gap:26px;position:relative}
+  .badge{
+    position:relative;width:264px;height:264px;border-radius:50%;
+    display:grid;place-items:center;
+    background:radial-gradient(circle at 50% 30%,#1b2b52,#0c1124 70%);
+    border:1px solid rgba(96,165,250,.4);
+    box-shadow:0 0 0 1px rgba(59,130,246,.18), 0 30px 80px -20px rgba(59,130,246,.6);
+    animation:pulseGlow 2.8s ease-in-out infinite;
+  }
+  .badge::before{content:"";position:absolute;inset:-2px;border-radius:50%;
+    background:conic-gradient(from 0deg,transparent,var(--blue-bright),transparent 40%);
+    animation:spin 6s linear infinite;opacity:.55;z-index:-1;filter:blur(2px)}
+  .badge::after{content:"";position:absolute;inset:14px;border-radius:50%;border:1px dashed rgba(96,165,250,.25)}
+  @keyframes pulseGlow{0%,100%{box-shadow:0 0 0 1px rgba(59,130,246,.18),0 30px 80px -20px rgba(59,130,246,.45)}50%{box-shadow:0 0 0 1px rgba(96,165,250,.4),0 30px 110px -16px rgba(59,130,246,.95)}}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .badge .num{font-family:var(--display);font-weight:700;font-size:5rem;line-height:.9;letter-spacing:-.04em;margin-top:6px;
+    background:linear-gradient(180deg,#fff,#9cc1ff);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .badge .min{font-family:var(--display);font-weight:600;font-size:1rem;letter-spacing:.42em;text-transform:uppercase;color:var(--blue-bright);margin-top:4px;padding-left:.42em}
+  .badge .ring-label{position:absolute;top:30px;left:0;right:0;text-align:center;white-space:nowrap;font-size:.6rem;letter-spacing:.32em;text-transform:uppercase;color:var(--faint);font-weight:600}
+
+  /* ---------- Countdown ---------- */
+  .countdown-wrap{width:100%}
+  .cd-label{font-size:.78rem;letter-spacing:.2em;text-transform:uppercase;color:var(--faint);font-weight:600;text-align:center;margin-bottom:12px}
+  .countdown{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  .cd-cell{background:var(--bg-2);border:1px solid var(--line);border-radius:14px;padding:14px 8px;text-align:center}
+  .cd-num{font-family:var(--display);font-weight:700;font-size:clamp(1.7rem,4vw,2.3rem);color:#fff;font-variant-numeric:tabular-nums;line-height:1}
+  .cd-unit{font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:var(--faint);margin-top:7px;font-weight:600}
+  .cd-live{text-align:center;padding:18px;background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.4);border-radius:14px;font-weight:600;color:var(--green)}
+
+  /* ---------- Generic section ---------- */
+  .sec{padding:88px 0}
+  .sec-head{max-width:620px;margin-bottom:48px}
+  .sec-head.center{margin-left:auto;margin-right:auto;text-align:center}
+  .sec-head h2{margin:14px 0 16px}
+  .sec-head p{color:var(--muted);font-size:1.08rem}
+
+  .divider{height:1px;background:var(--line);max-width:var(--maxw);margin:0 auto}
+
+  /* ---------- Cards / build ---------- */
+  .cards-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .card{background:var(--bg-1);border:1px solid var(--line);border-radius:20px;padding:30px;transition:border-color .2s ease,transform .2s ease,background .2s ease}
+  .card:hover{border-color:var(--line-2);transform:translateY(-3px);background:var(--bg-2)}
+  .card .ic{width:48px;height:48px;border-radius:13px;display:grid;place-items:center;margin-bottom:20px;
+    background:rgba(59,130,246,.12);border:1px solid rgba(59,130,246,.3);color:var(--blue-bright)}
+  .card .ic svg{width:24px;height:24px}
+  .card h3{font-size:1.28rem;margin-bottom:10px}
+  .card p{color:var(--muted);font-size:.98rem}
+  .card .num-tag{font-family:var(--display);font-size:.82rem;color:var(--faint);font-weight:600;letter-spacing:.08em}
+
+  /* ---------- Who it's for ---------- */
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+  .who{background:var(--bg-1);border:1px solid var(--line);border-radius:22px;padding:36px;position:relative;overflow:hidden}
+  .who.pro{background:linear-gradient(180deg,rgba(59,130,246,.08),var(--bg-1))}
+  .who .tag{display:inline-flex;align-items:center;gap:8px;font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--blue-bright);margin-bottom:18px}
+  .who h3{font-size:1.5rem;margin-bottom:8px}
+  .who > p{color:var(--muted);margin-bottom:22px}
+  .who ul{list-style:none;display:flex;flex-direction:column;gap:13px}
+  .who li{display:flex;gap:12px;align-items:flex-start;color:var(--text);font-size:.98rem}
+  .who li svg{width:20px;height:20px;flex:none;color:var(--green);margin-top:2px}
+
+  /* ---------- Agenda ---------- */
+  .agenda{display:flex;flex-direction:column;gap:0;border:1px solid var(--line);border-radius:22px;overflow:hidden;background:var(--bg-1)}
+  .agenda-row{display:grid;grid-template-columns:auto auto 1fr;gap:22px;align-items:center;padding:24px 28px;border-bottom:1px solid var(--line);transition:background .2s ease}
+  .agenda-row:last-child{border-bottom:0}
+  .agenda-row:hover{background:var(--bg-2)}
+  .agenda-row .step{font-family:var(--display);font-weight:700;font-size:1.1rem;color:var(--blue-bright);width:30px}
+  .agenda-row .time{font-family:var(--display);font-weight:600;font-size:.92rem;color:var(--faint);font-variant-numeric:tabular-nums;width:64px}
+  .agenda-row .desc h4{font-family:var(--display);font-size:1.12rem;font-weight:600;color:#fff;margin-bottom:3px}
+  .agenda-row .desc p{color:var(--muted);font-size:.92rem}
+
+  /* ---------- Instructor ---------- */
+  .instructor{display:grid;grid-template-columns:.85fr 1.15fr;gap:48px;align-items:center;
+    background:var(--bg-1);border:1px solid var(--line);border-radius:26px;padding:44px}
+  .ins-photo{position:relative;aspect-ratio:1/1;border-radius:22px;overflow:hidden;
+    background:linear-gradient(160deg,#1a2540,#0d1426);border:1px solid var(--line-2);display:grid;place-items:center}
+  .ins-photo .initials{font-family:var(--display);font-weight:700;font-size:5rem;color:rgba(180,197,255,.5);letter-spacing:-.02em}
+  .ins-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 18%}
+  .ins-photo .ph-note{position:absolute;bottom:14px;left:0;right:0;text-align:center;font-family:var(--display);font-size:.66rem;letter-spacing:.18em;text-transform:uppercase;color:var(--faint)}
+  .ins-body h2{margin:12px 0 6px}
+  .ins-role{color:var(--blue-bright);font-weight:600;font-size:1rem;margin-bottom:18px}
+  .ins-body > p{color:var(--muted);margin-bottom:24px;font-size:1.02rem}
+  .creds{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+  .cred{background:var(--bg-2);border:1px solid var(--line);border-radius:13px;padding:15px 16px}
+  .cred .big{font-family:var(--display);font-weight:700;font-size:1.3rem;color:#fff}
+  .cred .sm{font-size:.82rem;color:var(--muted);margin-top:2px}
+
+  /* ---------- Social proof band ---------- */
+  .proof{text-align:center}
+  .proof .big-stars{color:var(--amber);font-size:1.7rem;letter-spacing:4px;margin-bottom:14px}
+  .proof h2{margin-bottom:10px}
+  .proof p{color:var(--muted);max-width:48ch;margin:0 auto}
+  .proof-avatars{display:flex;justify-content:center;margin-top:26px}
+  .proof-avatars span{width:46px;height:46px;border-radius:50%;border:2px solid var(--bg);margin-left:-12px;display:grid;place-items:center;font-weight:700;font-family:var(--display);color:#fff;font-size:.92rem}
+  .proof-avatars span:first-child{margin-left:0}
+  .proof-avatars .more{background:var(--bg-3);color:var(--blue-bright);font-size:.8rem}
+
+  /* ---------- CTA section ---------- */
+  .cta-band{position:relative;overflow:hidden;border-radius:28px;
+    background:linear-gradient(150deg,#13234a,#0b1020);border:1px solid rgba(96,165,250,.28);
+    padding:64px 40px;text-align:center}
+  .cta-band .glow{filter:blur(80px);opacity:.6}
+  .cta-band .glow.c{width:480px;height:480px;background:radial-gradient(circle,rgba(59,130,246,.5),transparent 70%);bottom:-260px;left:50%;transform:translateX(-50%)}
+  .cta-band .inner{position:relative;z-index:1}
+  .cta-band h2{font-size:clamp(2.1rem,4.6vw,3.3rem);margin-bottom:16px}
+  .cta-band p{color:var(--muted);font-size:1.1rem;max-width:42ch;margin:0 auto 30px}
+  .urgency{display:inline-flex;align-items:center;gap:9px;margin-top:24px;font-size:.92rem;color:var(--amber);font-weight:500}
+  .urgency svg{width:17px;height:17px}
+  .free-pill{display:inline-flex;align-items:center;gap:8px;font-weight:600;font-size:.85rem;letter-spacing:.04em;color:var(--green);background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.32);padding:7px 16px;border-radius:999px;margin-bottom:22px}
+
+  /* ---------- FAQ ---------- */
+  .faq-list{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:14px}
+  details{background:var(--bg-1);border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:border-color .2s ease}
+  details[open]{border-color:var(--line-2)}
+  summary{list-style:none;cursor:pointer;padding:22px 26px;display:flex;align-items:center;justify-content:space-between;gap:16px;font-family:var(--display);font-weight:600;font-size:1.1rem;color:#fff}
+  summary::-webkit-details-marker{display:none}
+  summary .chev{flex:none;width:22px;height:22px;color:var(--blue-bright);transition:transform .25s ease}
+  details[open] summary .chev{transform:rotate(45deg)}
+  details .answer{padding:0 26px 24px;color:var(--muted);font-size:1rem;max-width:64ch}
+
+  /* ---------- Footer ---------- */
+  footer{border-top:1px solid var(--line);padding:54px 0 40px;margin-top:40px}
+  .foot{display:flex;justify-content:space-between;align-items:flex-start;gap:28px;flex-wrap:wrap}
+  .foot .brand .name{font-size:1.1rem}
+  .foot p{color:var(--faint);font-size:.86rem;margin-top:12px;max-width:38ch}
+  .foot-r{text-align:right}
+  .foot-r .small{color:var(--faint);font-size:.82rem;line-height:1.9}
+  .copyright{margin-top:36px;padding-top:24px;border-top:1px solid var(--line);color:var(--faint);font-size:.8rem;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+  /* ---------- iPhone 17 mockup + app screens ---------- */
+  .ph-showcase{position:relative}
+  .phones{display:flex;justify-content:center;align-items:flex-end;gap:30px;flex-wrap:wrap;position:relative;z-index:1}
+  .iphone{position:relative;width:278px;flex:none;aspect-ratio:278/596;border-radius:50px;
+    background:linear-gradient(155deg,#42424d,#14141b 62%);padding:11px;
+    box-shadow:0 50px 100px -34px rgba(0,0,0,.85),0 0 0 1.5px rgba(255,255,255,.06),inset 0 0 0 2px rgba(255,255,255,.05)}
+  .iphone.lift{transform:translateY(-30px)}
+  .ip-screen{position:relative;width:100%;height:100%;border-radius:40px;overflow:hidden;background:#0a0a11;display:flex;flex-direction:column}
+  .island{position:absolute;top:12px;left:50%;transform:translateX(-50%);width:90px;height:27px;background:#000;border-radius:15px;z-index:9}
+  .island::after{content:"";position:absolute;right:8px;top:8.5px;width:9px;height:9px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#34507f,#0a0f1e)}
+  .ip-status{display:flex;justify-content:space-between;align-items:center;padding:15px 22px 4px;font-size:.74rem;font-weight:700;color:#fff;flex:none}
+  .ip-status .r{display:flex;gap:6px;align-items:center}
+  .ip-status .bars{display:inline-flex;align-items:flex-end;gap:2px;height:10px}
+  .ip-status .bars i{width:3px;background:#fff;border-radius:1px}
+  .ip-status .bars i:nth-child(1){height:4px}.ip-status .bars i:nth-child(2){height:6px}.ip-status .bars i:nth-child(3){height:8px}.ip-status .bars i:nth-child(4){height:10px}
+  .ip-status .bat{width:22px;height:11px;border:1.4px solid rgba(255,255,255,.55);border-radius:3px;position:relative}
+  .ip-status .bat::before{content:"";position:absolute;left:1.5px;top:1.5px;bottom:1.5px;width:68%;background:#fff;border-radius:1px}
+  .ip-status .bat::after{content:"";position:absolute;right:-3px;top:3.5px;width:2px;height:4px;background:rgba(255,255,255,.55);border-radius:0 1px 1px 0}
+
+  .scr-a{background:linear-gradient(180deg,#0d1322,#0a0a11)}
+  .ba-head{display:flex;align-items:center;gap:11px;padding:12px 18px 12px}
+  .ba-mark{width:30px;height:30px;border-radius:9px;flex:none;display:grid;place-items:center;background:rgba(217,119,87,.14);border:1px solid rgba(217,119,87,.4)}
+  .ba-mark svg{width:18px;height:18px}.ba-mark line{stroke:#D97757}
+  .ba-title{font-family:var(--display);font-weight:600;font-size:.92rem;color:#fff;white-space:nowrap}
+  .ba-sub{font-size:.7rem;color:var(--cta-bright);font-weight:600;white-space:nowrap}
+  .ba-chat{padding:2px 18px;display:flex;flex-direction:column;gap:8px}
+  .bub{font-size:.74rem;line-height:1.4;padding:9px 12px;border-radius:13px;max-width:86%}
+  .bub.user{align-self:flex-end;background:var(--blue-deep);color:#fff;border-bottom-right-radius:4px}
+  .bub.ai{align-self:flex-start;background:#1b1b27;color:#e8ecf4;border-bottom-left-radius:4px}
+  .ba-steps{margin:13px 18px 0;display:flex;flex-direction:column;gap:8px}
+  .bstep{display:flex;align-items:center;justify-content:space-between;font-size:.76rem;color:#cdd4e0;background:#13131d;border:1px solid var(--line);border-radius:11px;padding:11px 13px}
+  .bstep svg{width:16px;height:16px;color:var(--cta-bright)}
+  .bstep.live{border-color:rgba(96,165,250,.5);color:#fff}
+  .bstep .spin{width:14px;height:14px;border-radius:50%;border:2px solid rgba(96,165,250,.3);border-top-color:var(--blue-bright);animation:spin .8s linear infinite}
+  .ba-input{margin:auto 16px 18px;font-size:.72rem;color:var(--faint);background:#13131d;border:1px solid var(--line);border-radius:999px;padding:11px 16px}
+
+  .scr-b{background:#0b0b13}
+  .na-head{display:flex;align-items:center;justify-content:space-between;padding:8px 20px 12px}
+  .na-hi{font-size:.7rem;color:var(--faint)}
+  .na-app{font-family:var(--display);font-weight:700;font-size:1.02rem;color:#fff}
+  .na-av{width:34px;height:34px;border-radius:50%;background:linear-gradient(140deg,#34E88E,#12A862);display:grid;place-items:center;font-weight:700;color:#04140c;font-size:.85rem}
+  .na-photo{margin:0 18px;height:120px;border-radius:16px;position:relative;overflow:hidden;border:1px solid var(--line);
+    background-image:repeating-linear-gradient(135deg,#1a2336 0 12px,#141b2b 12px 24px)}
+  .na-snap{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.5);font-family:var(--display)}
+  .na-badge{position:absolute;top:10px;left:10px;font-size:.58rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#04140c;background:var(--cta-bright);padding:4px 8px;border-radius:7px}
+  .na-card{margin:13px 18px 0;background:#13131d;border:1px solid var(--line);border-radius:15px;padding:13px 15px}
+  .na-card-top{display:flex;justify-content:space-between;align-items:flex-end}
+  .na-meal{font-family:var(--display);font-weight:600;font-size:.9rem;color:#fff}
+  .na-kcal{font-family:var(--display);font-weight:700;font-size:1.45rem;color:var(--cta-bright);line-height:1}
+  .na-kcal span{font-size:.62rem;color:var(--faint);font-weight:600;margin-left:3px}
+  .na-macros{display:flex;gap:7px;margin-top:10px}
+  .na-macros .mac{flex:1;text-align:center;font-size:.64rem;font-weight:600;padding:6px 0;border-radius:8px;background:#1b1b27;color:#cdd4e0}
+  .na-list{margin:11px 18px 0;display:flex;flex-direction:column}
+  .na-item{display:flex;justify-content:space-between;font-size:.74rem;color:#aeb6c4;padding:8px 2px;border-bottom:1px solid var(--line)}
+  .na-tabs{margin-top:auto;display:flex;align-items:center;justify-content:space-around;padding:13px 24px;border-top:1px solid var(--line)}
+  .na-tabs .t{width:20px;height:20px;border-radius:6px;background:#2a2a36}
+  .na-tabs .t.on{background:var(--cta-bright)}
+  .na-tabs .t-cam{width:42px;height:42px;border-radius:50%;background:linear-gradient(180deg,#34E88E,#12A862);color:#04140c;display:grid;place-items:center;font-size:1.5rem;font-weight:500;margin-top:-20px;box-shadow:0 8px 20px -6px rgba(39,209,127,.7)}
+
+  .scr-c{background:radial-gradient(circle at 50% 28%,#0e2018,#0a0a11 70%)}
+  .dp-body{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px}
+  .dp-check{width:74px;height:74px;border-radius:50%;background:rgba(39,209,127,.14);border:1px solid rgba(39,209,127,.5);display:grid;place-items:center;margin-bottom:20px}
+  .dp-check svg{width:36px;height:36px;color:var(--cta-bright)}
+  .dp-title{font-family:var(--display);font-weight:700;font-size:1.35rem;color:#fff;margin-bottom:7px}
+  .dp-sub{font-size:.78rem;color:var(--muted);margin-bottom:22px;max-width:22ch}
+  .dp-link{display:flex;align-items:center;gap:8px;font-size:.76rem;font-weight:600;color:#fff;background:#13131d;border:1px solid var(--line);border-radius:999px;padding:10px 16px}
+  .dp-link .dot{width:7px;height:7px;border-radius:50%;background:var(--cta-bright);box-shadow:0 0 0 4px rgba(39,209,127,.18)}
+  .dp-share{display:flex;gap:8px;margin-top:16px}
+  .dp-share span{font-size:.68rem;font-weight:600;color:#cdd4e0;background:#1b1b27;border:1px solid var(--line);border-radius:9px;padding:8px 13px}
+  .dp-foot{margin-top:26px;font-size:.64rem;letter-spacing:.1em;text-transform:uppercase;color:var(--faint)}
+  .ph-cap{text-align:center;margin-top:22px;font-size:.8rem;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);font-family:var(--display);font-weight:600}
+
+  /* ---------- Secrets ---------- */
+  .secrets{display:flex;flex-direction:column;gap:18px;max-width:900px;margin:0 auto}
+  .secret{position:relative;background:var(--bg-1);border:1px solid var(--line);border-radius:22px;padding:34px 38px 34px 134px;overflow:hidden;transition:border-color .2s,transform .2s}
+  .secret:hover{border-color:var(--line-2);transform:translateY(-2px)}
+  .secret .ghost{position:absolute;left:26px;top:50%;transform:translateY(-50%);font-family:var(--display);font-weight:700;font-size:5.4rem;line-height:1;color:transparent;-webkit-text-stroke:1.5px rgba(96,165,250,.32)}
+  .secret-no{font-family:var(--body);font-weight:700;font-size:.74rem;letter-spacing:.18em;text-transform:uppercase;color:var(--cta-bright);margin-bottom:9px}
+  .secret h3{font-size:1.42rem;margin-bottom:12px}
+  .secret-quote{color:var(--muted);font-size:1.04rem;line-height:1.6;border-left:2px solid rgba(39,209,127,.5);padding-left:16px}
+
+  /* ---------- Testimonials ---------- */
+  .tgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .tcard{background:var(--bg-1);border:1px solid var(--line);border-radius:20px;padding:28px;display:flex;flex-direction:column}
+  .tcard .tstars{color:var(--amber);letter-spacing:2px;font-size:.92rem;margin-bottom:14px}
+  .tcard .tq{color:#dfe4ec;font-size:.98rem;flex:1}
+  .tperson{display:flex;gap:12px;align-items:center;margin-top:22px}
+  .tperson .av{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-weight:700;font-family:var(--display);color:#fff;font-size:.9rem;flex:none}
+  .tperson .tn{font-weight:600;font-size:.92rem;color:#fff}
+  .tperson .tr{font-size:.78rem;color:var(--faint)}
+
+  /* ---------- Value stack ---------- */
+  .vstack{max-width:680px;margin:0 auto;background:linear-gradient(180deg,rgba(39,209,127,.06),var(--bg-1));border:1px solid rgba(39,209,127,.28);border-radius:26px;padding:40px 40px 36px}
+  .vstack .vh{font-family:var(--display);font-weight:700;font-size:1.45rem;color:#fff;text-align:center;margin-bottom:6px}
+  .vstack .vsub{text-align:center;color:var(--muted);font-size:.95rem;margin-bottom:24px}
+  .vrow{display:flex;align-items:center;gap:14px;padding:14px 0;border-bottom:1px solid var(--line)}
+  .vrow .vc{width:22px;height:22px;border-radius:50%;flex:none;display:grid;place-items:center;background:rgba(39,209,127,.16)}
+  .vrow .vc svg{width:13px;height:13px;color:var(--cta-bright)}
+  .vrow .vt{flex:1;font-size:.97rem;color:#e8ecf4}
+  .vrow .vv{font-family:var(--display);font-weight:600;font-size:.9rem;color:var(--faint);text-decoration:line-through;white-space:nowrap}
+  .vtotal{display:flex;justify-content:space-between;align-items:center;margin-top:22px;padding-top:6px}
+  .vtotal .vl{font-family:var(--display);font-weight:600;color:#fff;font-size:1.05rem}
+  .vtotal .vr{text-align:right}
+  .vtotal .vr .was{font-size:.85rem;color:var(--faint);text-decoration:line-through;display:block}
+  .vtotal .vr .now{font-family:var(--display);font-weight:700;font-size:1.65rem;color:var(--cta-bright);line-height:1}
+
+  /* ---------- PS ---------- */
+  .ps{max-width:760px;margin:0 auto;background:var(--bg-1);border:1px solid var(--line);border-left:3px solid var(--cta);border-radius:16px;padding:30px 34px}
+  .ps h4{font-family:var(--display);font-weight:700;font-size:1.12rem;color:#fff;margin-bottom:10px}
+  .ps p{color:var(--muted);font-size:1rem;margin-bottom:12px}
+  .ps p:last-child{margin-bottom:0}
+  .ps b{color:var(--text)}
+
+  /* ---------- Reveal animation (degrade-safe: visible unless actively animating) ---------- */
+  .reveal{opacity:1;transform:none}
+  html.js .reveal.in{animation:revealUp .7s cubic-bezier(.2,.7,.2,1)}
+  @keyframes revealUp{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+  @media (prefers-reduced-motion:reduce){
+    html.js .reveal.in{animation:none}
+    .badge,.badge::before,.eyebrow .dot{animation:none}
+    html{scroll-behavior:auto}
+  }
+
+  /* ---------- Registration modal (Russell Brunson 2-step opt-in) ---------- */
+  .modal-open{overflow:hidden}
+  .reg-overlay{
+    position:fixed;inset:0;z-index:100;display:none;
+    align-items:flex-start;justify-content:center;
+    padding:40px 18px;overflow-y:auto;
+    background:rgba(5,6,11,.74);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  }
+  .reg-overlay.show{display:flex;animation:ovFade .2s ease}
+  @keyframes ovFade{from{opacity:0}to{opacity:1}}
+  .reg-modal{
+    position:relative;width:100%;max-width:480px;margin:auto;
+    background:linear-gradient(180deg,var(--bg-1),var(--bg));
+    border:1px solid var(--line-2);border-radius:24px;
+    box-shadow:0 40px 120px -28px rgba(0,0,0,.85),0 0 0 1px rgba(59,130,246,.12),0 30px 90px -30px rgba(59,130,246,.4);
+    padding:34px 32px 30px;
+    animation:modalIn .28s cubic-bezier(.2,.7,.2,1);
+  }
+  @keyframes modalIn{from{opacity:0;transform:translateY(22px) scale(.98)}to{opacity:1;transform:none}}
+  .reg-close{
+    position:absolute;top:16px;right:16px;width:34px;height:34px;border-radius:50%;
+    display:grid;place-items:center;cursor:pointer;color:var(--muted);
+    background:rgba(255,255,255,.05);border:1px solid var(--line);transition:background .15s,color .15s}
+  .reg-close:hover{background:rgba(255,255,255,.1);color:#fff}
+  .reg-close svg{width:17px;height:17px}
+  .reg-free{display:inline-flex;align-items:center;gap:7px;font-weight:600;font-size:.74rem;letter-spacing:.04em;
+    color:var(--green);background:rgba(52,211,153,.1);border:1px solid rgba(52,211,153,.32);
+    padding:6px 13px;border-radius:999px;margin-bottom:16px}
+  .reg-free .dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 0 4px rgba(52,211,153,.18)}
+  .reg-head h3{font-family:var(--display);font-weight:700;font-size:1.62rem;line-height:1.1;letter-spacing:-.02em;color:#fff;margin-bottom:8px}
+  .reg-head h3 .hl{color:var(--blue-bright)}
+  .reg-head .reg-sub{color:var(--muted);font-size:.96rem;margin-bottom:6px}
+  .reg-when{display:flex;align-items:center;gap:8px;font-size:.84rem;color:var(--blue-300);font-weight:500;margin:14px 0 22px}
+  .reg-when svg{width:15px;height:15px;flex:none;color:var(--blue-bright)}
+  .reg-form{display:flex;flex-direction:column;gap:13px}
+  .reg-row{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+  .fld{display:flex;flex-direction:column;gap:6px}
+  .fld label{font-size:.76rem;font-weight:600;letter-spacing:.02em;color:var(--muted)}
+  .fld label .req{color:var(--cta-bright)}
+  .fld input,.fld select{
+    width:100%;font-family:var(--body);font-size:.96rem;color:var(--text);
+    background:var(--bg-2);border:1px solid var(--line);border-radius:11px;
+    padding:13px 14px;transition:border-color .15s,box-shadow .15s,background .15s;
+    -webkit-appearance:none;appearance:none}
+  .fld select{cursor:pointer;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%2360A5FA' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;background-position:right 12px center;padding-right:38px}
+  .fld select:invalid{color:var(--faint)}
+  .fld input::placeholder{color:var(--faint)}
+  .fld input:focus,.fld select:focus{outline:none;border-color:var(--blue);background:var(--bg-3);box-shadow:0 0 0 3px rgba(59,130,246,.22)}
+  .fld input:user-invalid{border-color:#F87171}
+  .reg-phone{display:grid;grid-template-columns:84px 1fr;gap:0}
+  .reg-phone .cc{display:flex;align-items:center;justify-content:center;font-size:.94rem;color:var(--muted);font-weight:600;
+    background:var(--bg-3);border:1px solid var(--line);border-right:0;border-radius:11px 0 0 11px}
+  .reg-phone input{border-radius:0 11px 11px 0}
+  .reg-submit{margin-top:6px;padding:16px 26px;font-size:1.04rem}
+  .reg-fine{display:flex;align-items:center;justify-content:center;gap:7px;margin-top:14px;font-size:.78rem;color:var(--faint);text-align:center}
+  .reg-fine svg{width:14px;height:14px;flex:none;color:var(--green)}
+  .reg-err{display:none;font-size:.82rem;color:#FCA5A5;background:rgba(248,113,113,.1);border:1px solid rgba(248,113,113,.32);
+    border-radius:10px;padding:10px 13px;margin-top:4px}
+  .reg-err.show{display:block}
+  .reg-spin{width:17px;height:17px;border-radius:50%;border:2px solid rgba(4,20,12,.35);border-top-color:#04140c;animation:spin .7s linear infinite}
+  /* success state */
+  .reg-success{display:none;text-align:center;padding:6px 4px 4px}
+  .reg-success.show{display:block;animation:ovFade .3s ease}
+  .reg-success .rs-check{width:72px;height:72px;border-radius:50%;margin:6px auto 20px;display:grid;place-items:center;
+    background:rgba(39,209,127,.14);border:1px solid rgba(39,209,127,.5)}
+  .reg-success .rs-check svg{width:36px;height:36px;color:var(--cta-bright)}
+  .reg-success h3{font-family:var(--display);font-weight:700;font-size:1.6rem;color:#fff;margin-bottom:8px}
+  .reg-success p{color:var(--muted);font-size:.96rem;max-width:34ch;margin:0 auto 18px}
+  .reg-success .rs-name{color:var(--text);font-weight:600}
+  .reg-join{display:inline-flex;align-items:center;gap:9px;font-weight:600;font-size:.96rem}
+  .reg-detail{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:18px;font-size:.82rem;color:var(--blue-300)}
+  .reg-detail svg{width:15px;height:15px;flex:none;color:var(--blue-bright)}
+  @media (max-width:440px){
+    .reg-modal{padding:28px 20px 24px;border-radius:20px}
+    .reg-row{grid-template-columns:1fr}
+    .reg-head h3{font-size:1.4rem}
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:920px){
+    .hero-grid{grid-template-columns:1fr;gap:48px}
+    .badge-stage{order:-1}
+    .instructor{grid-template-columns:1fr;gap:32px;padding:32px}
+    .ins-photo{max-width:280px;margin:0 auto}
+  }
+  @media (max-width:760px){
+    .cards-3{grid-template-columns:1fr}
+    .two-col{grid-template-columns:1fr}
+    .nav-date{display:none}
+    .sec{padding:64px 0}
+    .hero{padding:36px 0 64px}
+    .agenda-row{grid-template-columns:auto 1fr;gap:16px;padding:20px}
+    .agenda-row .time{display:none}
+    .creds{grid-template-columns:1fr 1fr}
+    .cta-band{padding:48px 24px}
+    .foot-r{text-align:left}
+    .iphone.lift{transform:none}
+    .tgrid{grid-template-columns:1fr}
+    .secret{padding:28px 24px}
+    .secret .ghost{position:static;transform:none;display:block;font-size:3.2rem;margin-bottom:4px;-webkit-text-stroke:1.2px rgba(96,165,250,.3)}
+    .vstack{padding:30px 22px}
+  }
+  @media (max-width:420px){
+    .badge{width:218px;height:218px}
+    .badge .num{font-size:4.4rem}
+    .cd-cell{padding:12px 4px}
+  }
+</style>
+</head>
+<body>
+
+<!-- ===================== HEADER ===================== -->
+<header id="header">
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="RevApex AI home">
+      <svg class="mark" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="96" height="96" rx="23" fill="#2563EB"></rect>
+        <path d="M30 64 L48 30 L66 64" stroke="#ffffff" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M40 64 L48 49 L56 64" stroke="#B4C5FF" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+      <span class="name">Rev<span>Apex</span> AI</span>
+    </a>
+    <div class="nav-meta">
+      <span class="nav-date">Fri, <b>June 20</b> · 10:30 AM IST</span>
+      <a class="btn btn-primary btn-sm" href="#register" id="navCta">Reserve free spot</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <div class="bg-fx">
+    <div class="grid-lines"></div>
+    <div class="glow a"></div>
+    <div class="glow b"></div>
+  </div>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-copy reveal">
+        <span class="eyebrow"><span class="dot"></span> Free live bootcamp</span>
+        <h1>Build a <span class="hl">real mobile app</span> with AI in just 90 minutes.</h1>
+        <p class="lead">No coding degree. No prior experience. Show up, follow along, and walk away with something real you built yourself — live, in one sitting.</p>
+        <div class="hero-cta">
+          <a class="btn btn-primary" href="#register">Reserve your free spot →</a>
+          <a class="btn btn-ghost" href="#build">See what you'll build</a>
+        </div>
+        <div class="powered">
+          <span class="powered-label">Built live with</span>
+          <span class="claude-chip">
+            <svg class="cmark" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <g stroke-width="7" stroke-linecap="round">
+                <line x1="50" y1="35" x2="50" y2="8"></line>
+                <line x1="50" y1="35" x2="50" y2="8" transform="rotate(30 50 50)"></line>
+                <line x1="50" y1="35" x2="50" y2="8" transform="rotate(60 50 50)"></line>
+                <line x1="50" y1="35" x2="50" y2="8" transform="rotate(90 50 50)"></line>
+                <line x1="50" y1="35" x2="50" y2="8" transform="rotate(120 50 50)"></line>
+                <line x1="50" y1="35" x2="50" y2="8" transform="rotate(150 50 50)"></line>
+                <line x1="50" y1="35" x2="50" y2="8" transform="rotate(180 50 50)"></line>
+                <line x1="50" y1="35" x2="50" y2="8" transform="rotate(210 50 50)"></line>
+                <line x1="50" y1="35" x2="50" y2="8" transform="rotate(240 50 50)"></line>
+                <line x1="50" y1="35" x2="50" y2="8" transform="rotate(270 50 50)"></line>
+                <line x1="50" y1="35" x2="50" y2="8" transform="rotate(300 50 50)"></line>
+                <line x1="50" y1="35" x2="50" y2="8" transform="rotate(330 50 50)"></line>
+              </g>
+            </svg>
+            Claude Code
+          </span>
+        </div>
+        <div class="trust-inline">
+          <div class="avatars" aria-hidden="true">
+            <span style="background:#2563EB">A</span>
+            <span style="background:#7C3AED">R</span>
+            <span style="background:#0891B2">S</span>
+            <span style="background:#1b1b27;color:#B4C5FF;font-size:.66rem">30+</span>
+          </div>
+          <div>
+            <div class="stars" aria-hidden="true">★★★★★</div>
+            <p><b>30+ people</b> already registered for June 20</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="badge-stage reveal">
+        <div class="badge" role="img" aria-label="90 minute live bootcamp">
+          <span class="ring-label">Live build</span>
+          <span class="num">90</span>
+          <span class="min">Min</span>
+        </div>
+        <div class="countdown-wrap">
+          <div class="cd-label">Doors open in</div>
+          <div class="countdown" id="countdown" aria-live="polite">
+            <div class="cd-cell"><div class="cd-num" id="cd-d">00</div><div class="cd-unit">Days</div></div>
+            <div class="cd-cell"><div class="cd-num" id="cd-h">00</div><div class="cd-unit">Hours</div></div>
+            <div class="cd-cell"><div class="cd-num" id="cd-m">00</div><div class="cd-unit">Mins</div></div>
+            <div class="cd-cell"><div class="cd-num" id="cd-s">00</div><div class="cd-unit">Secs</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===================== WHAT YOU'LL BUILD ===================== -->
+<section class="sec" id="build">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">What you'll walk away with</span>
+      <h2>You don't watch a demo. You build the thing.</h2>
+      <p>By the end of the 90 minutes, three real outcomes are sitting on your screen — not slides, not theory.</p>
+    </div>
+    <div class="cards-3">
+      <div class="card reveal">
+        <div class="ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2.5"></rect><path d="M12 18h.01"></path></svg>
+        </div>
+        <span class="num-tag">01</span>
+        <h3>A working AI mobile app</h3>
+        <p>An actual app running on your phone — powered by AI, built by you during the session. Not a mockup.</p>
+      </div>
+      <div class="card reveal">
+        <div class="ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v8"></path><path d="m16 6-4 4-4-4"></path><rect x="4" y="13" width="16" height="8" rx="2"></rect></svg>
+        </div>
+        <span class="num-tag">02</span>
+        <h3>Real deployment</h3>
+        <p>Take it live and share a link. Learn how to ship so your app exists beyond the class — ready to show anyone.</p>
+      </div>
+      <div class="card reveal">
+        <div class="ic">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"></circle><circle cx="18" cy="6" r="2.5"></circle><circle cx="12" cy="18" r="2.5"></circle><path d="M6 8.5v2a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-2"></path><path d="M12 12.5v3"></path></svg>
+        </div>
+        <span class="num-tag">03</span>
+        <h3>A no-code AI workflow</h3>
+        <p>The exact repeatable workflow to turn an idea into a shipped product — using <strong style="color:#EAB59E;font-weight:600">Claude Code</strong> and AI tools, without writing code.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== APP SHOWCASE (iPhone 17) ===================== -->
+<section class="sec ph-showcase" id="showcase">
+  <div class="bg-fx"><div class="glow b" style="top:60px;left:auto;right:-200px;opacity:.4"></div></div>
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="kicker">From your idea to your phone</span>
+      <h2>Watch one idea become a real app — live on screen.</h2>
+      <p>This is the exact build you'll follow along with: describe it, let AI structure it, and ship a working app you can hold in your hand. No code. No theory.</p>
+    </div>
+    <div class="phones">
+
+      <!-- Screen A: the builder -->
+      <div class="iphone reveal">
+        <div class="ip-screen scr-a">
+          <div class="island"></div>
+          <div class="ip-status"><span>9:41</span><span class="r"><span class="bars"><i></i><i></i><i></i><i></i></span><span class="bat"></span></span></div>
+          <div class="ba-head">
+            <span class="ba-mark">
+              <svg class="cmark" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><g stroke-width="8" stroke-linecap="round"><line x1="50" y1="35" x2="50" y2="9"></line><line x1="50" y1="35" x2="50" y2="9" transform="rotate(45 50 50)"></line><line x1="50" y1="35" x2="50" y2="9" transform="rotate(90 50 50)"></line><line x1="50" y1="35" x2="50" y2="9" transform="rotate(135 50 50)"></line><line x1="50" y1="35" x2="50" y2="9" transform="rotate(180 50 50)"></line><line x1="50" y1="35" x2="50" y2="9" transform="rotate(225 50 50)"></line><line x1="50" y1="35" x2="50" y2="9" transform="rotate(270 50 50)"></line><line x1="50" y1="35" x2="50" y2="9" transform="rotate(315 50 50)"></line></g></svg>
+            </span>
+            <div><div class="ba-title">RevApex Builder</div><div class="ba-sub">Building your app…</div></div>
+          </div>
+          <div class="ba-chat">
+            <div class="bub user">Build a meal tracker with AI photo scan</div>
+            <div class="bub ai">On it — generating your 4 screens now.</div>
+          </div>
+          <div class="ba-steps">
+            <div class="bstep">Home screen<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></div>
+            <div class="bstep">Camera + AI scan<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></div>
+            <div class="bstep live">Results &amp; macros<span class="spin"></span></div>
+            <div class="bstep">Profile</div>
+          </div>
+          <div class="ba-input">Describe a change…</div>
+        </div>
+      </div>
+
+      <!-- Screen B: the finished app -->
+      <div class="iphone lift reveal">
+        <div class="ip-screen scr-b">
+          <div class="island"></div>
+          <div class="ip-status"><span>9:41</span><span class="r"><span class="bars"><i></i><i></i><i></i><i></i></span><span class="bat"></span></span></div>
+          <div class="na-head">
+            <div><div class="na-hi">Good evening, Riya</div><div class="na-app">NutriSnap AI</div></div>
+            <span class="na-av">R</span>
+          </div>
+          <div class="na-photo"><span class="na-badge">AI detected</span><span class="na-snap">snapped plate</span></div>
+          <div class="na-card">
+            <div class="na-card-top"><div class="na-meal">Grilled paneer bowl</div><div class="na-kcal">542<span>kcal</span></div></div>
+            <div class="na-macros"><span class="mac">P · 34g</span><span class="mac">C · 48g</span><span class="mac">F · 19g</span></div>
+          </div>
+          <div class="na-list">
+            <div class="na-item"><span>Paneer</span><span>180 kcal</span></div>
+            <div class="na-item"><span>Brown rice</span><span>210 kcal</span></div>
+            <div class="na-item"><span>Veggies</span><span>152 kcal</span></div>
+          </div>
+          <div class="na-tabs"><i class="t on"></i><i class="t"></i><span class="t-cam">+</span><i class="t"></i><i class="t"></i></div>
+        </div>
+      </div>
+
+      <!-- Screen C: deployed / live -->
+      <div class="iphone reveal">
+        <div class="ip-screen scr-c">
+          <div class="island"></div>
+          <div class="ip-status"><span>9:41</span><span class="r"><span class="bars"><i></i><i></i><i></i><i></i></span><span class="bat"></span></span></div>
+          <div class="dp-body">
+            <div class="dp-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></div>
+            <div class="dp-title">You're live.</div>
+            <div class="dp-sub">Your app is deployed and ready to share.</div>
+            <div class="dp-link"><span class="dot"></span>nutrisnap.revapex.app</div>
+            <div class="dp-share"><span>Share</span><span>Copy link</span><span>QR code</span></div>
+            <div class="dp-foot">Built in 90 minutes · RevApex AI</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="ph-cap reveal">Describe → Build → Ship · all in one 90-minute session</div>
+    <div style="text-align:center;margin-top:34px" class="reveal"><a class="btn btn-primary" href="#register">I want to build this →</a></div>
+  </div>
+</section>
+
+<!-- ===================== THE 3 SECRETS ===================== -->
+<section class="sec" id="secrets" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="kicker">What you'll discover live</span>
+      <h2>The 3 secrets to building your first app in 90 minutes.</h2>
+      <p>Most people think they're one coding course away from building an app. They're not. They're missing these three things.</p>
+    </div>
+    <div class="secrets">
+      <div class="secret reveal">
+        <span class="ghost">1</span>
+        <div class="secret-no">Secret #1</div>
+        <h3>The 90-Minute Myth Breaker</h3>
+        <p class="secret-quote">"You do not need to learn app development before building your first app. You need a guided process that turns one idea into one working prototype — fast."</p>
+      </div>
+      <div class="secret reveal">
+        <span class="ghost">2</span>
+        <div class="secret-no">Secret #2</div>
+        <h3>The Snap-and-Go Shortcut</h3>
+        <p class="secret-quote">"The Snap-and-Go formula: snap your idea, choose the flow, and go live with a visible result. That's what makes beginners feel momentum immediately."</p>
+      </div>
+      <div class="secret reveal">
+        <span class="ghost">3</span>
+        <div class="secret-no">Secret #3</div>
+        <h3>The AI Co-Builder Method</h3>
+        <p class="secret-quote">"AI can do the heavy lifting — structure, screens, copy, and flow — while you stay focused on the idea and the decisions. That's why someone with zero coding background can still leave with something real."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== WHO IT'S FOR ===================== -->
+<section class="sec" id="who" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">Who this is for</span>
+      <h2>Two kinds of people leave this class different.</h2>
+    </div>
+    <div class="two-col">
+      <div class="who reveal">
+        <span class="tag">For students &amp; freshers</span>
+        <h3>Job seekers</h3>
+        <p>You don't have a CS degree or a portfolio yet. Build one real project today.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>Final-year students &amp; recent graduates</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>Freshers wanting a real project for their résumé</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>Anyone told "you need coding skills" to break in</li>
+        </ul>
+      </div>
+      <div class="who pro reveal">
+        <span class="tag">For working professionals</span>
+        <h3>Builders &amp; founders</h3>
+        <p>You have ideas but no time to learn to code. Ship without a dev team.</p>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>Entrepreneurs validating an app idea fast</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>Managers &amp; professionals upskilling in AI</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>Side-hustlers who want to ship, not study</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ===================== AGENDA ===================== -->
+<section class="sec" id="agenda">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="kicker">The 90-minute plan</span>
+      <h2>What's covered, minute by minute.</h2>
+      <p>Tight, hands-on, zero filler. Here's exactly how the live session runs.</p>
+    </div>
+    <div class="agenda reveal">
+      <div class="agenda-row">
+        <span class="step">01</span><span class="time">0–10</span>
+        <div class="desc"><h4>The AI app stack, demystified</h4><p>What's actually possible today — and why you no longer need to code to build apps.</p></div>
+      </div>
+      <div class="agenda-row">
+        <span class="step">02</span><span class="time">10–35</span>
+        <div class="desc"><h4>From idea to screen, with Claude Code</h4><p>Turn a plain-English idea into a working app layout using Claude Code — live, together. Just describe it; watch it build.</p></div>
+      </div>
+      <div class="agenda-row">
+        <span class="step">03</span><span class="time">35–60</span>
+        <div class="desc"><h4>Wiring in real AI features</h4><p>Add intelligence — chat, generation, automation — without touching backend code.</p></div>
+      </div>
+      <div class="agenda-row">
+        <span class="step">04</span><span class="time">60–80</span>
+        <div class="desc"><h4>Ship it live</h4><p>Deploy your app and get a shareable link you can send to anyone, instantly.</p></div>
+      </div>
+      <div class="agenda-row">
+        <span class="step">05</span><span class="time">80–90</span>
+        <div class="desc"><h4>Your next 30 days</h4><p>The repeatable workflow to keep building — plus live Q&amp;A with Bahu.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== INSTRUCTOR ===================== -->
+<section class="sec" id="instructor" style="padding-top:0">
+  <div class="wrap">
+    <div class="instructor reveal">
+      <div class="ins-photo">
+        <img src="assets/bahu.png" alt="Mahabahu Behera (Bahu), founder of RevApex AI">
+      </div>
+      <div class="ins-body">
+        <span class="kicker">Your instructor</span>
+        <h2>Mahabahu Behera <span style="color:var(--faint);font-weight:500;font-size:1.4rem">(Bahu)</span></h2>
+        <div class="ins-role">Founder, RevApex AI · Salesforce Architect</div>
+        <p>17+ years building enterprise software at Fortune 500 scale. Bahu has shipped systems trusted by global teams — and now teaches everyday people to build with AI the way he does. Direct, practical, no jargon.</p>
+        <div class="creds">
+          <div class="cred"><div class="big">17+ yrs</div><div class="sm">In IT &amp; software engineering</div></div>
+          <div class="cred"><div class="big">GE · Wabtec</div><div class="sm">Ex–Fortune 500 experience</div></div>
+          <div class="cred"><div class="big">Architect</div><div class="sm">Certified Salesforce Architect</div></div>
+          <div class="cred"><div class="big">RevApex AI</div><div class="sm">Founder &amp; lead instructor</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== TESTIMONIALS ===================== -->
+<section class="sec" id="testimonials" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="kicker">Real people, real builds</span>
+      <h2>They showed up with an idea. They left with an app.</h2>
+    </div>
+    <div class="tgrid">
+      <div class="tcard reveal">
+        <div class="tstars" aria-hidden="true">★★★★★</div>
+        <p class="tq">“I had zero coding background. In 90 minutes I had a working app on my phone I could actually show recruiters. I still can't believe it was free.”</p>
+        <div class="tperson"><span class="av" style="background:#2563EB">AK</span><div><div class="tn">Ananya K.</div><div class="tr">Final-year student · Bengaluru</div></div></div>
+      </div>
+      <div class="tcard reveal">
+        <div class="tstars" aria-hidden="true">★★★★★</div>
+        <p class="tq">“I've sat through 'AI' webinars that were 100% theory. This was the opposite — I actually shipped something live and shared the link with my team the same evening.”</p>
+        <div class="tperson"><span class="av" style="background:#7C3AED">RP</span><div><div class="tn">Rohan P.</div><div class="tr">Marketing Manager · Pune</div></div></div>
+      </div>
+      <div class="tcard reveal">
+        <div class="tstars" aria-hidden="true">★★★★★</div>
+        <p class="tq">“I'd been quoting agencies ₹2 lakh for an MVP. Bahu showed me how to build the first version myself in one sitting. Genuinely changed how I think about shipping.”</p>
+        <div class="tperson"><span class="av" style="background:#0891B2">SV</span><div><div class="tn">Sneha V.</div><div class="tr">Founder · Hyderabad</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SOCIAL PROOF ===================== -->
+<section class="sec" id="proof" style="padding-top:0">
+  <div class="wrap">
+    <div class="proof reveal">
+      <div class="big-stars" aria-label="5 out of 5 stars">★★★★★</div>
+      <h2>Join 30+ people already registered.</h2>
+      <p>Students, freshers, founders and working professionals across India have reserved their seat for June 20. Don't learn about AI — build with it.</p>
+      <div class="proof-avatars" aria-hidden="true">
+        <span style="background:#2563EB">AK</span>
+        <span style="background:#7C3AED">RP</span>
+        <span style="background:#0891B2">SN</span>
+        <span style="background:#DB2777">MJ</span>
+        <span style="background:#16A34A">VT</span>
+        <span class="more">+25</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== VALUE STACK ===================== -->
+<section class="sec" id="value" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="kicker">Here's the deal</span>
+      <h2>Everything you get when you show up — free.</h2>
+    </div>
+    <div class="vstack reveal">
+      <div class="vh">Your free seat includes</div>
+      <div class="vsub">No payment to attend. No catch. Just show up live on June 20.</div>
+      <div class="vrow"><span class="vc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span><span class="vt">The live 90-minute build session</span><span class="vv">₹4,999</span></div>
+      <div class="vrow"><span class="vc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span><span class="vt">The Snap-and-Go app workflow template</span><span class="vv">₹1,999</span></div>
+      <div class="vrow"><span class="vc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span><span class="vt">Your deployed app + shareable link</span><span class="vv">₹1,999</span></div>
+      <div class="vrow"><span class="vc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span><span class="vt">Live Q&amp;A with Bahu</span><span class="vv">₹2,999</span></div>
+      <div class="vrow"><span class="vc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg></span><span class="vt">Full session replay access</span><span class="vv">₹999</span></div>
+      <div class="vtotal">
+        <span class="vl">Total value</span>
+        <span class="vr"><span class="was">₹12,995</span><span class="now">Today: FREE</span></span>
+      </div>
+      <div style="margin-top:26px"><a class="btn btn-primary btn-block" href="#register" style="padding:17px 30px">Claim my free seat →</a></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CTA ===================== -->
+<section class="sec" id="register" style="padding-top:0">
+  <div class="wrap">
+    <div class="cta-band reveal">
+      <div class="bg-fx"><div class="glow c"></div></div>
+      <div class="inner">
+        <span class="free-pill"><span style="width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block"></span> 100% free · live on Zoom</span>
+        <h2>Reserve your free spot.</h2>
+        <p>Friday, June 20, 2026 · 10:30 AM IST. One session, live on Zoom. Bring an idea — leave with an app.</p>
+        <a class="btn btn-primary" href="https://zoom.us" id="zoomCta" style="font-size:1.1rem;padding:18px 38px">Reserve your free spot →</a>
+        <div class="urgency">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+          Only June 20 — seats are limited.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FAQ ===================== -->
+<section class="sec" id="faq" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head center reveal">
+      <span class="kicker">Questions</span>
+      <h2>Quick answers.</h2>
+    </div>
+    <div class="faq-list">
+      <details class="reveal" open>
+        <summary>Is it really free?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg></summary>
+        <div class="answer">Yes — completely free. The 90-minute live bootcamp costs nothing to attend. At the end, there's an optional paid course for anyone who wants to go deeper, but the live build is yours at no cost.</div>
+      </details>
+      <details class="reveal">
+        <summary>Do I need coding skills?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg></summary>
+        <div class="answer">None at all. No coding degree, no prior experience needed. If you can follow along on a screen, you can build the app. We use AI and no-code tools — that's the whole point.</div>
+      </details>
+      <details class="reveal">
+        <summary>What do I need to attend?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"></path></svg></summary>
+        <div class="answer">A laptop or computer, a stable internet connection, and the Zoom link (sent after you register). That's it. Show up on time, follow along live, and build something real.</div>
+      </details>
+    </div>
+  </div>
+</section>
+<!-- ===================== PS / FOUNDER NOTE ===================== -->
+<section class="sec" id="ps" style="padding-top:0">
+  <div class="wrap">
+    <div class="ps reveal">
+      <h4>A quick note from Bahu</h4>
+      <p>For 17 years I built software the hard way — long timelines, big teams, expensive tools. AI has changed all of that. The same kind of app that used to take a team weeks, you can now prototype yourself in an afternoon. I want to show you exactly how.</p>
+      <p><b>P.S.</b> — This is a <b>live build</b>, not a replay-only webinar. The people who win are the ones who show up, follow along, and ship. Seats are limited and it's only happening on <b>June 20</b>. Reserve your spot now, while it's still free.</p>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <div class="brand">
+          <svg class="mark" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect width="96" height="96" rx="23" fill="#2563EB"></rect>
+            <path d="M30 64 L48 30 L66 64" stroke="#ffffff" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M40 64 L48 49 L56 64" stroke="#B4C5FF" stroke-width="8.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+          <span class="name">Rev<span>Apex</span> AI</span>
+        </div>
+        <p>Build with AI the way founders do. Live bootcamps and courses for students and professionals across India.</p>
+      </div>
+      <div class="foot-r">
+        <div class="small">
+          Free live bootcamp<br>
+          Friday, June 20, 2026 · 10:30 AM IST<br>
+          Hosted live on Zoom
+        </div>
+        <a class="btn btn-primary btn-sm" href="#register" style="margin-top:16px">Reserve free spot</a>
+      </div>
+    </div>
+    <div class="copyright">
+      <span>© 2026 RevApex AI. All rights reserved.</span>
+      <span>Built by founders, for builders.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ===================== REGISTRATION MODAL (Russell Brunson 2-step opt-in) ===================== -->
+<div class="reg-overlay" id="regOverlay" role="dialog" aria-modal="true" aria-labelledby="regTitle" hidden>
+  <div class="reg-modal" role="document">
+    <button class="reg-close" id="regClose" type="button" aria-label="Close">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"></path></svg>
+    </button>
+
+    <!-- Step: the form -->
+    <div class="reg-step" id="regStep">
+      <span class="reg-free"><span class="dot"></span> 100% free · live on Zoom</span>
+      <div class="reg-head">
+        <h3 id="regTitle">Reserve your <span class="hl">free seat</span> for the live build.</h3>
+        <p class="reg-sub">Enter your details and you'll be registered instantly — your Zoom link lands in your inbox.</p>
+        <div class="reg-when">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg>
+          Friday, June 20, 2026 · 10:30 AM IST
+        </div>
+      </div>
+
+      <form class="reg-form" id="regForm" novalidate>
+        <div class="reg-row">
+          <div class="fld">
+            <label for="rf-first">First name <span class="req">*</span></label>
+            <input id="rf-first" name="firstName" type="text" autocomplete="given-name" placeholder="Riya" required>
+          </div>
+          <div class="fld">
+            <label for="rf-last">Last name <span class="req">*</span></label>
+            <input id="rf-last" name="lastName" type="text" autocomplete="family-name" placeholder="Sharma" required>
+          </div>
+        </div>
+        <div class="fld">
+          <label for="rf-email">Email <span class="req">*</span></label>
+          <input id="rf-email" name="email" type="email" autocomplete="email" placeholder="you@email.com" required>
+        </div>
+        <div class="fld">
+          <label for="rf-phone">Phone (WhatsApp) <span class="req">*</span></label>
+          <div class="reg-phone">
+            <span class="cc">+91</span>
+            <input id="rf-phone" name="phone" type="tel" inputmode="numeric" autocomplete="tel-national" placeholder="98765 43210" pattern="[0-9 ]{7,15}" required>
+          </div>
+        </div>
+        <div class="reg-row">
+          <div class="fld">
+            <label for="rf-city">City <span class="req">*</span></label>
+            <input id="rf-city" name="city" type="text" autocomplete="address-level2" placeholder="Bengaluru" required>
+          </div>
+          <div class="fld">
+            <label for="rf-prof">I am a… <span class="req">*</span></label>
+            <select id="rf-prof" name="profession" required>
+              <option value="" disabled selected hidden>Select…</option>
+              <option value="student">Student</option>
+              <option value="job">Working professional</option>
+              <option value="businessman">Businessman</option>
+              <option value="entrepreneur">Entrepreneur</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="reg-err" id="regErr" role="alert"></div>
+
+        <button class="btn btn-primary btn-block reg-submit" id="regSubmit" type="submit">
+          <span class="reg-submit-label">Reserve my free seat →</span>
+        </button>
+        <div class="reg-fine">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>
+          We respect your privacy. No spam — just your Zoom link &amp; reminders.
+        </div>
+      </form>
+    </div>
+
+    <!-- Step: success -->
+    <div class="reg-success" id="regSuccess">
+      <div class="rs-check">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
+      </div>
+      <h3>You're registered<span id="rsName"></span>!</h3>
+      <p>Your seat for <span class="rs-name">June 20, 10:30 AM IST</span> is locked in. Check your email for the Zoom join link &amp; calendar invite.</p>
+      <a class="btn btn-primary reg-join" id="regJoin" href="#" target="_blank" rel="noopener">Add to calendar / Join link →</a>
+      <div class="reg-detail">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 7 13.03 12.7a2 2 0 0 1-2.06 0L2 7"></path><rect x="2" y="5" width="20" height="14" rx="2"></rect></svg>
+        Confirmation sent to <span id="rsEmail" style="color:#fff;font-weight:600">your email</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ---------- Countdown to June 20, 2026, 10:30 AM IST (UTC+5:30) ----------
+  // 10:30 IST == 05:00:00 UTC
+  (function(){
+    var target = Date.UTC(2026, 5, 20, 5, 0, 0);
+    var elD = document.getElementById('cd-d'),
+        elH = document.getElementById('cd-h'),
+        elM = document.getElementById('cd-m'),
+        elS = document.getElementById('cd-s'),
+        grid = document.getElementById('countdown');
+    function pad(n){return String(n).padStart(2,'0');}
+    function tick(){
+      var diff = target - Date.now();
+      if(diff <= 0){
+        grid.innerHTML = '<div class="cd-live" style="grid-column:1/-1">We\'re live now — join on Zoom →</div>';
+        clearInterval(timer);
+        return;
+      }
+      var s = Math.floor(diff/1000);
+      elD.textContent = pad(Math.floor(s/86400));
+      elH.textContent = pad(Math.floor(s%86400/3600));
+      elM.textContent = pad(Math.floor(s%3600/60));
+      elS.textContent = pad(s%60);
+    }
+    tick();
+    var timer = setInterval(tick, 1000);
+  })();
+
+  // ---------- Header scrolled state ----------
+  var header = document.getElementById('header');
+  function onScroll(){ header.classList.toggle('scrolled', window.scrollY > 12); }
+  onScroll();
+  window.addEventListener('scroll', onScroll, {passive:true});
+
+  // ---------- Reveal on scroll (robust) ----------
+  document.documentElement.classList.add('js');
+  var reveals = Array.prototype.slice.call(document.querySelectorAll('.reveal'));
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.style.opacity=''; e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, {threshold:0.08, rootMargin:'0px 0px -32px 0px'});
+  function inView(el){ var r = el.getBoundingClientRect(); return r.top < (window.innerHeight||0) - 24 && r.bottom > 0; }
+  reveals.forEach(function(el){
+    if(inView(el)){ el.classList.remove('in'); }   // above-the-fold: render instantly, no entrance (always visible)
+    else { el.style.opacity='0'; io.observe(el); }
+  });
+  // Safety net: any element we hid that is actually on screen must be revealed.
+  setTimeout(function(){
+    reveals.forEach(function(el){ if(el.style.opacity==='0' && inView(el)){ el.style.opacity=''; el.classList.add('in'); io.unobserve(el); } });
+  }, 600);
+
+  // ============================================================
+  //  REGISTRATION — Russell Brunson 2-step opt-in → Zoom signup
+  // ============================================================
+  //
+  //  HOW ZOOM AUTO-REGISTRATION WORKS (n8n low-stack flow):
+  //  This form POSTs the captured fields to an n8n webhook. In n8n you:
+  //    1) Webhook (POST)  ->  2) Zoom node: "Meeting > Create Registrant"
+  //       on meetingId 84987553921 (a Meeting with registration enabled)
+  //    3) Respond to Webhook  ->  return JSON { "join_url": "{{ $json.join_url }}" }
+  //  Zoom's create-registrant call returns a personal join_url; pass it back
+  //  so the success screen can show "Join link".
+  //
+  //  Two things to set on the n8n Webhook node so the browser call works:
+  //    - Response Mode: "Using 'Respond to Webhook' node" (so it returns join_url)
+  //    - CORS: allow this site's origin (Access-Control-Allow-Origin) — n8n
+  //      handles the OPTIONS preflight when "Allowed Origins (CORS)" is set.
+  var REG_CONFIG = {
+    endpoint: 'https://api.trustsolar.in/webhook/ai-bootcamp',
+    meetingId: '84987553921',          // Zoom Meeting ID (registration enabled)
+    fallbackJoinUrl: 'https://zoom.us' // shown if n8n doesn't return a join_url
+  };
+
+  (function(){
+    var overlay = document.getElementById('regOverlay');
+    if(!overlay) return;
+    var modal    = overlay.querySelector('.reg-modal');
+    var closeBtn = document.getElementById('regClose');
+    var form     = document.getElementById('regForm');
+    var stepView = document.getElementById('regStep');
+    var okView   = document.getElementById('regSuccess');
+    var errBox   = document.getElementById('regErr');
+    var submit   = document.getElementById('regSubmit');
+    var submitLbl= submit.querySelector('.reg-submit-label');
+    var lastFocus = null;
+
+    function open(e){
+      if(e){ e.preventDefault(); }
+      lastFocus = document.activeElement;
+      overlay.hidden = false;
+      overlay.classList.add('show');
+      document.body.classList.add('modal-open');
+      // reset to form step
+      stepView.style.display = '';
+      okView.classList.remove('show');
+      setTimeout(function(){ var f = document.getElementById('rf-first'); if(f) f.focus(); }, 60);
+    }
+    function close(){
+      overlay.classList.remove('show');
+      document.body.classList.remove('modal-open');
+      setTimeout(function(){ overlay.hidden = true; }, 180);
+      if(lastFocus && lastFocus.focus){ lastFocus.focus(); }
+    }
+
+    // Any CTA that pointed at the Zoom link or the #register section now opens the opt-in.
+    var triggers = document.querySelectorAll('a[href="#register"], a[href="https://zoom.us"], #zoomCta, #navCta');
+    Array.prototype.forEach.call(triggers, function(a){ a.addEventListener('click', open); });
+
+    closeBtn.addEventListener('click', close);
+    overlay.addEventListener('click', function(e){ if(e.target === overlay) close(); });
+    document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && !overlay.hidden) close(); });
+
+    function showError(msg){ errBox.textContent = msg; errBox.classList.add('show'); }
+    function clearError(){ errBox.classList.remove('show'); errBox.textContent=''; }
+
+    function setLoading(on){
+      submit.disabled = on;
+      if(on){ submitLbl.innerHTML = '<span class="reg-spin" style="display:inline-block;vertical-align:-3px"></span> Reserving your seat…'; }
+      else  { submitLbl.textContent = 'Reserve my free seat →'; }
+    }
+
+    function succeed(data, joinUrl){
+      var nameEl  = document.getElementById('rsName');
+      var emailEl = document.getElementById('rsEmail');
+      var joinEl  = document.getElementById('regJoin');
+      if(nameEl)  nameEl.textContent = data.firstName ? ', ' + data.firstName : '';
+      if(emailEl) emailEl.textContent = data.email;
+      if(joinEl)  joinEl.href = joinUrl || REG_CONFIG.fallbackJoinUrl;
+      stepView.style.display = 'none';
+      okView.classList.add('show');
+      modal.scrollIntoView({block:'nearest'});
+    }
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      clearError();
+      if(!form.checkValidity()){
+        showError('Please fill in every field with a valid value.');
+        form.reportValidity();
+        return;
+      }
+      var data = {
+        firstName: form.firstName.value.trim(),
+        lastName:  form.lastName.value.trim(),
+        email:     form.email.value.trim(),
+        phone:     '+91' + form.phone.value.replace(/\s+/g,'').trim(),
+        city:      form.city.value.trim(),
+        profession:form.profession.value,
+        meetingId: REG_CONFIG.meetingId,
+        event:     'AI App Bootcamp — June 20, 2026 10:30 IST',
+        source:    'landing:marketing/AI App Bootcamp Landing.html',
+        submittedAt: new Date().toISOString()
+      };
+
+      // No backend wired yet → DEMO mode (store lead, show success).
+      if(!REG_CONFIG.endpoint){
+        try{
+          var leads = JSON.parse(localStorage.getItem('revapex_bootcamp_leads')||'[]');
+          leads.push(data); localStorage.setItem('revapex_bootcamp_leads', JSON.stringify(leads));
+        }catch(_){}
+        setLoading(true);
+        setTimeout(function(){ setLoading(false); succeed(data, REG_CONFIG.fallbackJoinUrl); }, 700);
+        return;
+      }
+
+      // Live mode → n8n webhook registers the attendee with Zoom and returns a join_url.
+      setLoading(true);
+      fetch(REG_CONFIG.endpoint, {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify(data)
+      })
+      .then(function(r){
+        if(!r.ok) throw new Error('HTTP '+r.status);
+        return r.text();   // tolerate non-JSON replies from n8n
+      })
+      .then(function(text){
+        var joinUrl = REG_CONFIG.fallbackJoinUrl;
+        try{ var res = JSON.parse(text); if(res && res.join_url) joinUrl = res.join_url; }catch(_){}
+        setLoading(false);
+        succeed(data, joinUrl);
+      })
+      .catch(function(err){
+        setLoading(false);
+        showError('Something went wrong registering you. Please try again, or email us. ('+err.message+')');
+      });
+    });
+  })();
+</script>
+</body>
+</html>
