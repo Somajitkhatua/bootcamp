@@ -1064,8 +1064,11 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
       </div>
       <h3>You're registered<span id="rsName"></span>!</h3>
-      <p>Your seat for <span class="rs-name">June 20, 10:30 AM IST</span> is locked in. Check your email for the Zoom join link &amp; calendar invite.</p>
-      <a class="btn btn-primary reg-join" id="regJoin" href="#" target="_blank" rel="noopener">Add to calendar / Join link →</a>
+      <p>Your seat for <span class="rs-name">June 20, 10:30 AM IST</span> is locked in. Join the WhatsApp group below for your Zoom link, reminders &amp; last-minute updates.</p>
+      <a class="btn btn-primary reg-join" id="regJoin" href="https://chat.whatsapp.com/Gh8RXMLHALW8jLFbgi7Ma7?s=sh&amp;p=a&amp;mlu=3" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width:20px;height:20px;flex:none"><path d="M17.47 14.38c-.29-.15-1.7-.84-1.96-.93-.26-.1-.45-.15-.64.14-.19.29-.74.93-.9 1.12-.17.19-.33.21-.62.07-.29-.15-1.22-.45-2.32-1.43-.86-.77-1.44-1.72-1.6-2-.17-.29-.02-.45.12-.59.13-.13.29-.33.43-.5.15-.17.19-.29.29-.48.1-.19.05-.36-.02-.5-.07-.15-.64-1.55-.88-2.12-.23-.56-.47-.48-.64-.49l-.55-.01c-.19 0-.5.07-.76.36-.26.29-1 .97-1 2.37 0 1.4 1.02 2.75 1.17 2.94.14.19 2.01 3.08 4.88 4.32.68.29 1.21.47 1.63.6.68.22 1.31.19 1.8.11.55-.08 1.7-.69 1.94-1.36.24-.67.24-1.24.17-1.36-.07-.12-.26-.19-.55-.34z"/><path d="M12 2C6.48 2 2 6.48 2 12c0 1.77.46 3.43 1.27 4.88L2 22l5.25-1.38A9.93 9.93 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18.18c-1.54 0-3-.41-4.25-1.13l-.3-.18-3.12.82.83-3.04-.2-.32A8.13 8.13 0 0 1 3.82 12 8.18 8.18 0 1 1 12 20.18z"/></svg>
+        Join the WhatsApp group →
+      </a>
       <div class="reg-detail">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 7 13.03 12.7a2 2 0 0 1-2.06 0L2 7"></path><rect x="2" y="5" width="20" height="14" rx="2"></rect></svg>
         Confirmation sent to <span id="rsEmail" style="color:#fff;font-weight:600">your email</span>
@@ -1199,10 +1202,9 @@
     function succeed(data, joinUrl){
       var nameEl  = document.getElementById('rsName');
       var emailEl = document.getElementById('rsEmail');
-      var joinEl  = document.getElementById('regJoin');
       if(nameEl)  nameEl.textContent = data.firstName ? ', ' + data.firstName : '';
       if(emailEl) emailEl.textContent = data.email;
-      if(joinEl)  joinEl.href = joinUrl || REG_CONFIG.fallbackJoinUrl;
+      // Join button is a fixed WhatsApp group link (set in markup); joinUrl unused.
       stepView.style.display = 'none';
       okView.classList.add('show');
       modal.scrollIntoView({block:'nearest'});
