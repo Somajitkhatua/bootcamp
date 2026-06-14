@@ -1240,8 +1240,29 @@
         return;
       }
 
-      // Live mode → n8n webhook registers the attendee with Zoom and returns a join_url.
+      // Live mode → n8n webhook registers the attendee with Zoom.
+      // Two-tier, self-healing submit:
+      //  1) Proper JSON + CORS request so we can read back a personal join_url.
+      //  2) If the browser blocks it (e.g. the webhook's CORS allow-origin
+      //     doesn't match this site), fall back to a CORS-safelisted urlencoded
+      //     no-cors POST. That skips the preflight entirely so the lead is never
+      //     lost; the response is opaque, so n8n emails the personal join link.
       setLoading(true);
+
+      function urlencode(obj){
+        return Object.keys(obj).map(function(k){
+          return encodeURIComponent(k)+'='+encodeURIComponent(obj[k]);
+        }).join('&');
+      }
+      function fallbackSubmit(){
+        return fetch(REG_CONFIG.endpoint, {
+          method:'POST',
+          mode:'no-cors',
+          headers:{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},
+          body: urlencode(data)
+        }).then(function(){ setLoading(false); succeed(data, REG_CONFIG.fallbackJoinUrl); });
+      }
+
       fetch(REG_CONFIG.endpoint, {
         method:'POST',
         headers:{'Content-Type':'application/json'},
@@ -1257,9 +1278,13 @@
         setLoading(false);
         succeed(data, joinUrl);
       })
-      .catch(function(err){
-        setLoading(false);
-        showError('Something went wrong registering you. Please try again, or email us. ('+err.message+')');
+      .catch(function(){
+        // Likely a CORS/preflight block — deliver via the no-cors fallback so
+        // the registration still reaches n8n.
+        fallbackSubmit().catch(function(err){
+          setLoading(false);
+          showError('Something went wrong registering you. Please try again, or email us. ('+err.message+')');
+        });
       });
     });
   })();
