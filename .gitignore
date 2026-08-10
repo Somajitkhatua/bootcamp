@@ -2,3 +2,11 @@
 .DS_Store
 node_modules/
 *.log
+
+# Secrets — never commit real Zoho credentials or tokens.
+.env
+.env.local
+.env.*.local
+
+# Netlify CLI local state (functions cache, local Blobs emulation, etc.)
+.netlify/

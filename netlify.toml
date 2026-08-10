@@ -1,0 +1,30 @@
+[build]
+  publish = "."
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+# ---------------------------------------------------------------------------
+# API routes — stable, documented paths that map onto Netlify Functions.
+# Keep these paths exactly as-is: https://events.revapex.ai/api/... is the
+# contract the frontend and the Zoho OAuth app's redirect URI depend on.
+# ---------------------------------------------------------------------------
+
+[[redirects]]
+  from = "/api/webinar/register"
+  to = "/.netlify/functions/webinar-register"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/auth/zoho/callback"
+  to = "/.netlify/functions/zoho-auth-callback"
+  status = 200
+  force = true
+
+[[redirects]]
+  from = "/api/auth/zoho/start"
+  to = "/.netlify/functions/zoho-auth-start"
+  status = 200
+  force = true
