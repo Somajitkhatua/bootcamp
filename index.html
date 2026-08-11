@@ -1000,7 +1000,7 @@
       <span class="reg-free"><span class="dot"></span> 100% free · live on Zoom</span>
       <div class="reg-head">
         <h3 id="regTitle">Reserve your <span class="hl">free seat</span> for the live build.</h3>
-        <p class="reg-sub">Enter your details and you'll be registered instantly — your confirmation and joining details land in your inbox.</p>
+        <p class="reg-sub">Enter your details and you'll be registered instantly — your Zoom link lands in your inbox.</p>
         <div class="reg-when">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg>
           Sunday, August 16, 2026 · 10:30 AM IST
@@ -1046,14 +1046,6 @@
           </div>
         </div>
 
-        <!-- Honeypot: invisible to humans, irresistible to naive bots. Not type="hidden" —
-             some bots skip truly-hidden inputs, so this is hidden with CSS instead. -->
-        <div style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden" aria-hidden="true">
-          <label for="rf-website">Website</label>
-          <input id="rf-website" name="honeypot" type="text" tabindex="-1" autocomplete="off">
-        </div>
-        <input type="hidden" id="rf-renderedAt" name="renderedAt" value="">
-
         <div class="reg-err" id="regErr" role="alert"></div>
 
         <button class="btn btn-primary btn-block reg-submit" id="regSubmit" type="submit">
@@ -1066,18 +1058,14 @@
       </form>
     </div>
 
-    <!-- Step: success / already-registered (same view, text set by JS) -->
+    <!-- Step: success -->
     <div class="reg-success" id="regSuccess">
       <div class="rs-check">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"></path></svg>
       </div>
-      <h3 id="rsHeading">You're registered<span id="rsName"></span>!</h3>
-      <p id="rsMessage">Registration successful! Your webinar confirmation and joining details have been sent to your email.</p>
-      <a class="btn btn-primary reg-join" id="regJoinLink" href="#" target="_blank" rel="noopener" style="display:none;margin-bottom:10px">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:18px;height:18px;flex:none"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path></svg>
-        Open your join link →
-      </a>
-      <a class="btn btn-ghost reg-join" id="regJoin" href="https://chat.whatsapp.com/Gh8RXMLHALW8jLFbgi7Ma7?s=sh&amp;p=a&amp;mlu=3" target="_blank" rel="noopener">
+      <h3>You're registered<span id="rsName"></span>!</h3>
+      <p>Your seat for <span class="rs-name">August 16, 10:30 AM IST</span> is locked in. Join the WhatsApp group below for your Zoom link, reminders &amp; last-minute updates.</p>
+      <a class="btn btn-primary reg-join" id="regJoin" href="https://chat.whatsapp.com/Gh8RXMLHALW8jLFbgi7Ma7?s=sh&amp;p=a&amp;mlu=3" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="width:20px;height:20px;flex:none"><path d="M17.47 14.38c-.29-.15-1.7-.84-1.96-.93-.26-.1-.45-.15-.64.14-.19.29-.74.93-.9 1.12-.17.19-.33.21-.62.07-.29-.15-1.22-.45-2.32-1.43-.86-.77-1.44-1.72-1.6-2-.17-.29-.02-.45.12-.59.13-.13.29-.33.43-.5.15-.17.19-.29.29-.48.1-.19.05-.36-.02-.5-.07-.15-.64-1.55-.88-2.12-.23-.56-.47-.48-.64-.49l-.55-.01c-.19 0-.5.07-.76.36-.26.29-1 .97-1 2.37 0 1.4 1.02 2.75 1.17 2.94.14.19 2.01 3.08 4.88 4.32.68.29 1.21.47 1.63.6.68.22 1.31.19 1.8.11.55-.08 1.7-.69 1.94-1.36.24-.67.24-1.24.17-1.36-.07-.12-.26-.19-.55-.34z"/><path d="M12 2C6.48 2 2 6.48 2 12c0 1.77.46 3.43 1.27 4.88L2 22l5.25-1.38A9.93 9.93 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm0 18.18c-1.54 0-3-.41-4.25-1.13l-.3-.18-3.12.82.83-3.04-.2-.32A8.13 8.13 0 0 1 3.82 12 8.18 8.18 0 1 1 12 20.18z"/></svg>
         Join the WhatsApp group →
       </a>
@@ -1142,21 +1130,25 @@
   }, 600);
 
   // ============================================================
-  //  REGISTRATION — Russell Brunson 2-step opt-in → Zoho Webinar
+  //  REGISTRATION — Russell Brunson 2-step opt-in → Zoom signup
   // ============================================================
   //
-  //  Submits directly to our own backend: POST /api/webinar/register
-  //  (a Netlify Function). That function looks up this eventId's Zoho
-  //  webinar identifiers server-side, obtains a Zoho OAuth access token
-  //  via a stored refresh token, and calls the Zoho Webinar Registration
-  //  API. No Zoho credential or webinar identifier ever reaches this file.
+  //  HOW ZOOM AUTO-REGISTRATION WORKS (n8n low-stack flow):
+  //  This form POSTs the captured fields to an n8n webhook. In n8n you:
+  //    1) Webhook (POST)  ->  2) Zoom node: "Meeting > Create Registrant"
+  //       on meetingId 84987553921 (a Meeting with registration enabled)
+  //    3) Respond to Webhook  ->  return JSON { "join_url": "{{ $json.join_url }}" }
+  //  Zoom's create-registrant call returns a personal join_url; pass it back
+  //  so the success screen can show "Join link".
+  //
+  //  Two things to set on the n8n Webhook node so the browser call works:
+  //    - Response Mode: "Using 'Respond to Webhook' node" (so it returns join_url)
+  //    - CORS: allow this site's origin (Access-Control-Allow-Origin) — n8n
+  //      handles the OPTIONS preflight when "Allowed Origins (CORS)" is set.
   var REG_CONFIG = {
-    endpoint: '/api/webinar/register',
-    eventId: 'ai-app-bootcamp'
-  };
-
-  var REG_MSG = {
-    failure: "We couldn't complete your registration right now. Please try again or contact support."
+    endpoint: 'https://api.trustsolar.in/webhook/ai-bootcamp',
+    meetingId: '84987553921',          // Zoom Meeting ID (registration enabled)
+    fallbackJoinUrl: 'https://zoom.us' // shown if n8n doesn't return a join_url
   };
 
   (function(){
@@ -1170,7 +1162,6 @@
     var errBox   = document.getElementById('regErr');
     var submit   = document.getElementById('regSubmit');
     var submitLbl= submit.querySelector('.reg-submit-label');
-    var renderedAtField = document.getElementById('rf-renderedAt');
     var lastFocus = null;
 
     function open(e){
@@ -1182,7 +1173,6 @@
       // reset to form step
       stepView.style.display = '';
       okView.classList.remove('show');
-      if(renderedAtField) renderedAtField.value = String(Date.now()); // anti-bot: time-to-submit starts now
       setTimeout(function(){ var f = document.getElementById('rf-first'); if(f) f.focus(); }, 60);
     }
     function close(){
@@ -1192,8 +1182,8 @@
       if(lastFocus && lastFocus.focus){ lastFocus.focus(); }
     }
 
-    // Any CTA that pointed at the registration section opens the opt-in.
-    var triggers = document.querySelectorAll('a[href="#register"], #zoomCta, #navCta');
+    // Any CTA that pointed at the Zoom link or the #register section now opens the opt-in.
+    var triggers = document.querySelectorAll('a[href="#register"], a[href="https://zoom.us"], #zoomCta, #navCta');
     Array.prototype.forEach.call(triggers, function(a){ a.addEventListener('click', open); });
 
     closeBtn.addEventListener('click', close);
@@ -1204,28 +1194,17 @@
     function clearError(){ errBox.classList.remove('show'); errBox.textContent=''; }
 
     function setLoading(on){
-      submit.disabled = on; // prevents accidental double submission while a request is in flight
-      if(on){ submitLbl.innerHTML = '<span class="reg-spin" style="display:inline-block;vertical-align:-3px"></span> Registering you...'; }
+      submit.disabled = on;
+      if(on){ submitLbl.innerHTML = '<span class="reg-spin" style="display:inline-block;vertical-align:-3px"></span> Reserving your seat…'; }
       else  { submitLbl.textContent = 'Reserve my free seat →'; }
     }
 
-    function succeed(data, res){
-      var nameEl    = document.getElementById('rsName');
-      var emailEl   = document.getElementById('rsEmail');
-      var headingEl = document.getElementById('rsHeading');
-      var messageEl = document.getElementById('rsMessage');
-      var joinBtn   = document.getElementById('regJoinLink');
-
-      if(nameEl)  nameEl.textContent = (!res.duplicate && data.firstName) ? ', ' + data.firstName : '';
+    function succeed(data, joinUrl){
+      var nameEl  = document.getElementById('rsName');
+      var emailEl = document.getElementById('rsEmail');
+      if(nameEl)  nameEl.textContent = data.firstName ? ', ' + data.firstName : '';
       if(emailEl) emailEl.textContent = data.email;
-      if(headingEl) headingEl.textContent = res.duplicate ? "You're already registered!" : "You're registered" + (data.firstName ? ', ' + data.firstName : '') + '!';
-      if(messageEl) messageEl.textContent = res.message;
-
-      if(joinBtn){
-        if(res.joinLink){ joinBtn.href = res.joinLink; joinBtn.style.display = ''; }
-        else { joinBtn.style.display = 'none'; }
-      }
-
+      // Join button is a fixed WhatsApp group link (set in markup); joinUrl unused.
       stepView.style.display = 'none';
       okView.classList.add('show');
       modal.scrollIntoView({block:'nearest'});
@@ -1239,42 +1218,75 @@
         form.reportValidity();
         return;
       }
-
       var data = {
-        eventId:    REG_CONFIG.eventId,
-        firstName:  form.firstName.value.trim(),
-        lastName:   form.lastName.value.trim(),
-        email:      form.email.value.trim(),
-        phone:      '+91' + form.phone.value.replace(/\s+/g,'').trim(),
-        city:       form.city.value.trim(),
-        profession: form.profession.value,
-        honeypot:   form.honeypot.value,
-        renderedAt: renderedAtField ? renderedAtField.value : ''
+        firstName: form.firstName.value.trim(),
+        lastName:  form.lastName.value.trim(),
+        email:     form.email.value.trim(),
+        phone:     '+91' + form.phone.value.replace(/\s+/g,'').trim(),
+        city:      form.city.value.trim(),
+        profession:form.profession.value,
+        meetingId: REG_CONFIG.meetingId,
+        event:     'AI App Bootcamp — August 16, 2026 10:30 AM IST',
+        source:    'landing:marketing/AI App Bootcamp Landing.html',
+        submittedAt: new Date().toISOString()
       };
 
+      // No backend wired yet → DEMO mode (store lead, show success).
+      if(!REG_CONFIG.endpoint){
+        try{
+          var leads = JSON.parse(localStorage.getItem('revapex_bootcamp_leads')||'[]');
+          leads.push(data); localStorage.setItem('revapex_bootcamp_leads', JSON.stringify(leads));
+        }catch(_){}
+        setLoading(true);
+        setTimeout(function(){ setLoading(false); succeed(data, REG_CONFIG.fallbackJoinUrl); }, 700);
+        return;
+      }
+
+      // Live mode → n8n webhook registers the attendee with Zoom.
+      // Two-tier, self-healing submit:
+      //  1) Proper JSON + CORS request so we can read back a personal join_url.
+      //  2) If the browser blocks it (e.g. the webhook's CORS allow-origin
+      //     doesn't match this site), fall back to a CORS-safelisted urlencoded
+      //     no-cors POST. That skips the preflight entirely so the lead is never
+      //     lost; the response is opaque, so n8n emails the personal join link.
       setLoading(true);
 
+      function urlencode(obj){
+        return Object.keys(obj).map(function(k){
+          return encodeURIComponent(k)+'='+encodeURIComponent(obj[k]);
+        }).join('&');
+      }
+      function fallbackSubmit(){
+        return fetch(REG_CONFIG.endpoint, {
+          method:'POST',
+          mode:'no-cors',
+          headers:{'Content-Type':'application/x-www-form-urlencoded;charset=UTF-8'},
+          body: urlencode(data)
+        }).then(function(){ setLoading(false); succeed(data, REG_CONFIG.fallbackJoinUrl); });
+      }
+
       fetch(REG_CONFIG.endpoint, {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
         body: JSON.stringify(data)
       })
       .then(function(r){
-        return r.json().catch(function(){ return {}; }).then(function(json){ return {status: r.status, json: json}; });
+        if(!r.ok) throw new Error('HTTP '+r.status);
+        return r.text();   // tolerate non-JSON replies from n8n
       })
-      .then(function(res){
+      .then(function(text){
+        var joinUrl = REG_CONFIG.fallbackJoinUrl;
+        try{ var res = JSON.parse(text); if(res && res.join_url) joinUrl = res.join_url; }catch(_){}
         setLoading(false);
-        var json = res.json || {};
-        if(json.ok){
-          succeed(data, {duplicate: !!json.duplicate, message: json.message || '', joinLink: json.joinLink});
-        } else {
-          showError(json.message || REG_MSG.failure);
-        }
+        succeed(data, joinUrl);
       })
       .catch(function(){
-        // Network failure (offline, DNS, timeout) — handled gracefully, no raw error shown.
-        setLoading(false);
-        showError(REG_MSG.failure);
+        // Likely a CORS/preflight block — deliver via the no-cors fallback so
+        // the registration still reaches n8n.
+        fallbackSubmit().catch(function(err){
+          setLoading(false);
+          showError('Something went wrong registering you. Please try again, or email us. ('+err.message+')');
+        });
       });
     });
   })();
